@@ -1,0 +1,46 @@
+body {
+	background: #eeb;
+}
+
+#game {
+	width: 100%;
+	text-align: center;
+}
+
+#flipArea {
+	background: #eeb;
+}
+
+#playArea {
+	line-height: 0px;
+	background: #eeb;
+	display: inline-block;
+}
+
+.square {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	margin: 5px;
+	
+	&.blue { background: #aaf; }
+	&.red { background: #faa; }
+	
+}
+
+.shape {
+	line-height: 0;
+}
+
+.shapeDot {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	margin: 2px;
+	&.active { background: #aaf; }
+	&.inactive { background: transparent; }
+	
+	.shape.active &.active {
+		background: #faa;
+	}
+}

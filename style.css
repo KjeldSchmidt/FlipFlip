@@ -1,0 +1,41 @@
+body {
+  background: #eeb; }
+
+#game {
+  width: 100%;
+  text-align: center; }
+
+#flipArea {
+  background: #eeb; }
+
+#playArea {
+  line-height: 0px;
+  background: #eeb;
+  display: inline-block; }
+
+.square {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin: 5px; }
+  .square.blue {
+    background: #aaf; }
+  .square.red {
+    background: #faa; }
+
+.shape {
+  line-height: 0; }
+
+.shapeDot {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin: 2px; }
+  .shapeDot.active {
+    background: #aaf; }
+  .shapeDot.inactive {
+    background: transparent; }
+  .shape.active .shapeDot.active {
+    background: #faa; }
+
+/*# sourceMappingURL=style.css.map */
