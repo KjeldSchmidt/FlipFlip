@@ -10,6 +10,8 @@ var levelConfig = {
 		[0, 0, 0, 0, 0]
 	],
 
+	squares: [],
+
 	shape: new Shape( [ [1, 1, 1], [0, 1, 0] ] )
 };
 
@@ -18,5 +20,6 @@ var levelConfig = {
 // @koala-prepend "scripts/Game.js"
 // @koala-prepend "scripts/Square.js"
 // @koala-prepend "scripts/Shape.js"
+// @koala-prepend "scripts/utility.js"
 
 newLevel( levelConfig );

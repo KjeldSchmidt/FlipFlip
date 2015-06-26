@@ -1,16 +1,14 @@
 var Game = {
 	playArea: $( '#playArea' ),
 	flipArea: $( '#flipArea' ),
-	currentLevel: {
-		squares: []
-	},
+	currentLevel: {},
 };
 
 
 function newLevel( level ) {
-	var size = level.size;
+	Game.currentLevel = level;
 
-	buildBoard( size );
+	buildBoard( level.size );
 	newFlip( level.shape );
 }
 
@@ -34,17 +32,18 @@ function newFlip( shape ) {
 
 
 function hoverFlip( shape ) {
-	var squares = $( '.square' );
-	squares.each( function() {
-		var i = parseInt( $( this ).data( 'position' ).split(',')[0], 10 );
-		var j = parseInt( $( this ).data( 'position' ).split(',')[1], 10 );
+	var squares = flatten( Game.currentLevel.squares );
+
+	squares.forEach( function( elem ) {
+		var i = elem.i;
+		var j = elem.j;
 		
 		if ( i + shape.height <= levelConfig.size && j + shape.width <= levelConfig.size ) {
-			$( this ).on( 'mouseenter.placeShape mouseleave.placeShape', function() {
+			elem.DOMElement.on( 'mouseenter.placeShape mouseleave.placeShape', function() {
 				toggleColorShape( shape, i, j );
 			});
 			
-			$( this ).on( 'click.placeShape', function() {
+			elem.DOMElement.on( 'click.placeShape', function() {
 				applyShape( shape, i, j );
 			});
 		}
@@ -53,8 +52,10 @@ function hoverFlip( shape ) {
 
 
 function applyShape( shape, i, j ) {
-	squares.each( function() { 
-		$( this ).off( '.placeShape' ) 
+	var squares = flatten( Game.currentLevel.squares );
+
+	squares.forEach( function( elem ) { 
+		elem.DOMElement.off( '.placeShape' );
 	});
 }
 
