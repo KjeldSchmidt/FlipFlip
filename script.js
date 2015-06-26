@@ -57,6 +57,9 @@ function applyShape( shape, i, j ) {
 	squares.forEach( function( elem ) { 
 		elem.DOMElement.off( '.placeShape' );
 	});
+
+	Game.activeShape.changeState( 'used' );
+	Game.activeShape = undefined;
 }
 
 
@@ -93,21 +96,22 @@ function Shape( valueMap ) {
 	var self = this;
 	this.height = valueMap.length;
 	this.width = valueMap[0].length;
-	this.valueMap = valueMap;
-	this.state = 'unused',
-	
-	
+	this.valueMap = valueMap;	
 	this.DOMElement = $( this.getHTML() );
+
+	this.changeState( 'unused' );	
 	
 	this.DOMElement.click( function() {
-		switch ( self.state  ) {
-			case 'unused':
-				self.changeState( 'active' );
-				hoverFlip( self );
-				break;
-			case 'active':
-				self.changeState( 'unused' );
-				break;
+		if ( !( self.state == 'used' ) ) {
+			switch ( self.state  ) {
+				case 'unused':
+					self.changeState( 'active' );
+					hoverFlip( self );
+					break;
+				case 'active':
+					self.changeState( 'unused' );
+					break;
+			}
 		}
 	});
 }
@@ -142,6 +146,7 @@ Shape.prototype.changeState = function( newState ) {
 		case 'active':
 			this.state = 'active';
 			this.DOMElement.attr( 'data-state', 'active' );
+			Game.activeShape = this;
 			break;
 
 	}

@@ -57,6 +57,9 @@ function applyShape( shape, i, j ) {
 	squares.forEach( function( elem ) { 
 		elem.DOMElement.off( '.placeShape' );
 	});
+
+	Game.activeShape.changeState( 'used' );
+	Game.activeShape = undefined;
 }
 
 

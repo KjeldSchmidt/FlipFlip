@@ -2,14 +2,23 @@ function Shape( valueMap ) {
 	var self = this;
 	this.height = valueMap.length;
 	this.width = valueMap[0].length;
-	this.valueMap = valueMap;
-	
-	
+	this.valueMap = valueMap;	
 	this.DOMElement = $( this.getHTML() );
+
+	this.changeState( 'unused' );	
 	
 	this.DOMElement.click( function() {
-		$(this).toggleClass( 'active' );
-		hoverFlip( self );
+		if ( !( self.state == 'used' ) ) {
+			switch ( self.state  ) {
+				case 'unused':
+					self.changeState( 'active' );
+					hoverFlip( self );
+					break;
+				case 'active':
+					self.changeState( 'unused' );
+					break;
+			}
+		}
 	});
 }
 
@@ -27,3 +36,24 @@ Shape.prototype.getHTML = function() {
 	
 	return HTML;
 };
+
+Shape.prototype.changeState = function( newState ) {
+	var oldState = this.state;
+
+	switch ( newState ) {
+		case 'unused':
+			this.state = 'unused';
+			this.DOMElement.attr( 'data-state', 'unused' );
+			break;
+		case 'used':
+			this.state = 'used';
+			this.DOMElement.attr( 'data-state', 'used' );
+			break;
+		case 'active':
+			this.state = 'active';
+			this.DOMElement.attr( 'data-state', 'active' );
+			Game.activeShape = this;
+			break;
+
+	}
+}

@@ -31,11 +31,13 @@ body {
   height: 30px;
   display: inline-block;
   margin: 2px; }
-  .shapeDot.active {
+  .shape[data-state=active] .shapeDot.active {
+    background: #faa; }
+  .shape[data-state=unused] .shapeDot.active {
     background: #aaf; }
+  .shape[data-state=used] .shapeDot.active {
+    background: #aaa; }
   .shapeDot.inactive {
     background: transparent; }
-  .shape.active .shapeDot.active {
-    background: #faa; }
 
 /*# sourceMappingURL=style.css.map */

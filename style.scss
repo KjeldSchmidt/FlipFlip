@@ -37,10 +37,10 @@ body {
 	height: 30px;
 	display: inline-block;
 	margin: 2px;
-	&.active { background: #aaf; }
-	&.inactive { background: transparent; }
 	
-	.shape.active &.active {
-		background: #faa;
-	}
+	.shape[data-state=active] &.active { background: #faa; }
+	.shape[data-state=unused] &.active { background: #aaf; }
+	.shape[data-state=used] &.active { background: #aaa; }	
+
+	&.inactive { background: transparent; }
 }
