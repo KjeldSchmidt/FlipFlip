@@ -18,10 +18,14 @@ body {
   height: 100px;
   display: inline-block;
   margin: 5px; }
-  .square.blue {
+  .square[data-value="0"] {
     background: #aaf; }
-  .square.red {
+  .square[data-value="1"] {
     background: #faa; }
+  .square[data-value="-1"] {
+    background: #faa; }
+  .square[data-value="2"] {
+    background: #afa; }
 
 .shape {
   line-height: 0; }

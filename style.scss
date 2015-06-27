@@ -23,8 +23,10 @@ body {
 	display: inline-block;
 	margin: 5px;
 	
-	&.blue { background: #aaf; }
-	&.red { background: #faa; }
+	&[data-value="0"] { background: #aaf; }
+	&[data-value="1"] { background: #faa; }
+	&[data-value="-1"] { background: #faa; }
+	&[data-value="2"] { background: #afa; }
 	
 }
 
