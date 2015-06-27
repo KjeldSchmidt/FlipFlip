@@ -70,6 +70,8 @@ function applyShape( shape, i, j ) {
 
 	Game.activeShape.changeState( 'used' );
 	Game.activeShape = undefined;
+
+	checkForWin();
 }
 
 
@@ -100,6 +102,14 @@ function flipShape( shape, iStart, jStart ) {
 				squares[ (iStart + i) ][ (jStart + j) ].flipDown();
 			}
 		}
+	}
+}
+
+function checkForWin() {
+	var squares = flatten( Game.currentLevel.squares );
+	var valueSum = squares.reduce( function(a, b) { return a + b.value; }, 0 );
+	if ( valueSum == 0 ) {
+		alert( "win" );
 	}
 }
 
@@ -212,7 +222,7 @@ var levelConfig = {
 	map: [
 		[0, 0, 0, 0, 0],
 		[1, 1, 2, 1, 1],
-		[0, 1, 0, 1, 0],
+		[0, 1, 1, 1, 0],
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0]
 	],
