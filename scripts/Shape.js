@@ -38,8 +38,6 @@ Shape.prototype.getHTML = function() {
 };
 
 Shape.prototype.changeState = function( newState ) {
-	var oldState = this.state;
-
 	switch ( newState ) {
 		case 'unused':
 			this.state = 'unused';
