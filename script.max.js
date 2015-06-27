@@ -12,7 +12,11 @@ var levelConfig = {
 
 	squares: [],
 
-	shape: new Shape( [ [1, 1, 1], [0, 1, 0] ] )
+	shapes: [
+		new Shape( [ [1, 1, 1], [0, 1, 0] ] ),
+		new Shape( [ [1, 1, 1], [1, 1, 0] ] )
+
+	] 
 };
 
 

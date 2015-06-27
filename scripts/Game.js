@@ -9,7 +9,10 @@ function newLevel( level ) {
 	Game.currentLevel = level;
 
 	buildBoard( level.size, level.map );
-	newFlip( level.shape );
+	
+	level.shapes.forEach( function( elem ) {
+		newFlip( elem );
+	});
 }
 
 function buildBoard( size, map ) {

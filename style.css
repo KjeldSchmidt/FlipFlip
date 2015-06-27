@@ -28,7 +28,9 @@ body {
     background: #afa; }
 
 .shape {
-  line-height: 0; }
+  line-height: 0;
+  display: inline-block;
+  margin: 5px 17px; }
 
 .shapeDot {
   width: 30px;

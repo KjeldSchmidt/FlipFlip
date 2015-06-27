@@ -9,7 +9,10 @@ function newLevel( level ) {
 	Game.currentLevel = level;
 
 	buildBoard( level.size, level.map );
-	newFlip( level.shape );
+	
+	level.shapes.forEach( function( elem ) {
+		newFlip( elem );
+	});
 }
 
 function buildBoard( size, map ) {
@@ -216,7 +219,11 @@ var levelConfig = {
 
 	squares: [],
 
-	shape: new Shape( [ [1, 1, 1], [0, 1, 0] ] )
+	shapes: [
+		new Shape( [ [1, 1, 1], [0, 1, 0] ] ),
+		new Shape( [ [1, 1, 1], [1, 1, 0] ] )
+
+	] 
 };
 
 
