@@ -15,6 +15,17 @@ function newLevel( level ) {
 	});
 }
 
+function nextLevel() {
+	clearGameArea();
+	var currentLevelNumber = Game.currentLevel.number;
+	newLevel( levelData[ currentLevelNumber + 1 ] );
+}
+
+function clearGameArea() {
+	Game.playArea.empty();
+	Game.flipArea.empty();
+}
+
 function buildBoard( size, map ) {
 	squares = Game.currentLevel.squares;
 
@@ -71,7 +82,9 @@ function applyShape( shape, i, j ) {
 	Game.activeShape.changeState( 'used' );
 	Game.activeShape = undefined;
 
-	checkForWin();
+	if ( checkForWin() ) {
+		nextLevel();
+	}
 }
 
 
@@ -109,6 +122,6 @@ function checkForWin() {
 	var squares = flatten( Game.currentLevel.squares );
 	var valueSum = squares.reduce( function(a, b) { return a + b.value; }, 0 );
 	if ( valueSum == 0 ) {
-		alert( "win" );
+		return true;
 	}
 }

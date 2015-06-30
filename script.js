@@ -15,6 +15,17 @@ function newLevel( level ) {
 	});
 }
 
+function nextLevel() {
+	clearGameArea();
+	var currentLevelNumber = Game.currentLevel.number;
+	newLevel( levelData[ currentLevelNumber + 1 ] );
+}
+
+function clearGameArea() {
+	Game.playArea.empty();
+	Game.flipArea.empty();
+}
+
 function buildBoard( size, map ) {
 	squares = Game.currentLevel.squares;
 
@@ -71,7 +82,9 @@ function applyShape( shape, i, j ) {
 	Game.activeShape.changeState( 'used' );
 	Game.activeShape = undefined;
 
-	checkForWin();
+	if ( checkForWin() ) {
+		nextLevel();
+	}
 }
 
 
@@ -109,7 +122,7 @@ function checkForWin() {
 	var squares = flatten( Game.currentLevel.squares );
 	var valueSum = squares.reduce( function(a, b) { return a + b.value; }, 0 );
 	if ( valueSum == 0 ) {
-		alert( "win" );
+		return true;
 	}
 }
 
@@ -215,32 +228,56 @@ function flatten( array )  {
 	});
 }
 
-var levelConfig = {
+var levelData = [
+	{
+		number: 0,
+		size: 5,
 
-	size: 5,
+		map: [
+			[0, 0, 0, 0, 0],
+			[1, 1, 2, 1, 1],
+			[0, 1, 1, 1, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0]
+		],
 
-	map: [
-		[0, 0, 0, 0, 0],
-		[1, 1, 2, 1, 1],
-		[0, 1, 1, 1, 0],
-		[0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0]
-	],
+		squares: [],
 
-	squares: [],
+		shapes: [
+			new Shape( [ [1, 1, 1], [0, 1, 0] ] ),
+			new Shape( [ [1, 1, 1], [1, 1, 0] ] )
 
-	shapes: [
-		new Shape( [ [1, 1, 1], [0, 1, 0] ] ),
-		new Shape( [ [1, 1, 1], [1, 1, 0] ] )
+		]
+	},
 
-	] 
-};
+	{
+		size: 5,
 
+		map: [
+			[0, 1, 0, 0, 0],
+			[1, 2, 2, 1, 1],
+			[0, 2, 1, 1, 0],
+			[0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0]
+		],
 
+		squares: [],
+
+		shapes: [
+			new Shape( [ [1, 1, 1], [0, 1, 0] ] ),
+			new Shape( [ [1, 1, 1], [1, 1, 0] ] ),
+			new Shape( [ [1], [1], [1] ] )
+
+		]
+	},
+
+];
 
 // @koala-prepend "scripts/Game.js"
 // @koala-prepend "scripts/Square.js"
 // @koala-prepend "scripts/Shape.js"
 // @koala-prepend "scripts/utility.js"
 
-newLevel( levelConfig );
+// @koala-prepend "scripts/levelData.js"
+
+newLevel( levelData[0] );
