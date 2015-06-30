@@ -19,7 +19,12 @@ var Game = {
 		}
 
 		Game.activeShape = shape;
-	}
+	},
+
+	resetLevel: function() {
+		clearGameArea();
+		newLevel( levelData[ Game.currentLevel.number ] );
+	},
 };
 
 
@@ -30,13 +35,13 @@ function newLevel( level ) {
 	
 	level.shapes.forEach( function( elem ) {
 		newFlip( elem );
+		elem.changeState( 'unused' );
 	});
 }
 
 function nextLevel() {
 	clearGameArea();
-	var currentLevelNumber = Game.currentLevel.number;
-	newLevel( levelData[ currentLevelNumber + 1 ] );
+	newLevel( levelData[ Game.currentLevel.number + 1 ] );
 }
 
 function clearGameArea() {
@@ -101,6 +106,8 @@ function applyShape( shape, i, j ) {
 
 	if ( checkForWin() ) {
 		nextLevel();
+	} else if ( checkForLoss() ) {
+		Game.resetLevel();
 	}
 }
 
@@ -141,6 +148,15 @@ function checkForWin() {
 	if ( valueSum == 0 ) {
 		return true;
 	}
+}
+
+function checkForLoss() {
+	var unusedCount = 0;
+	Game.currentLevel.shapes.forEach( function( elem ) {
+		if ( elem.state != 'used' ) unusedCount++;
+	});
+	console.log( unusedCount );
+	return !(unusedCount > 0);
 }
 
 function Square( i, j, value ) {
