@@ -2,6 +2,24 @@ var Game = {
 	playArea: $( '#playArea' ),
 	flipArea: $( '#flipArea' ),
 	currentLevel: {},
+
+	stopHoverFlip: function() {
+		if ( Game.currentLevel.squares ) {
+			var squares = flatten( Game.currentLevel.squares );
+
+			squares.forEach( function( elem ) { 
+				elem.DOMElement.off( '.placeShape' );
+			});
+		}
+	},
+
+	setActiveShape: function( shape ) {
+		if ( Game.activeShape ) {
+			Game.activeShape.changeState( 'unused' );
+		}
+
+		Game.activeShape = shape;
+	}
 };
 
 
@@ -70,12 +88,11 @@ function hoverFlip( shape ) {
 }
 
 
+
 function applyShape( shape, i, j ) {
 	var squares = flatten( Game.currentLevel.squares );
 
-	squares.forEach( function( elem ) { 
-		elem.DOMElement.off( '.placeShape' );
-	});
+	Game.stopHoverFlip();
 
 	flipShape( shape, i, j );
 

@@ -2,6 +2,24 @@ var Game = {
 	playArea: $( '#playArea' ),
 	flipArea: $( '#flipArea' ),
 	currentLevel: {},
+
+	stopHoverFlip: function() {
+		if ( Game.currentLevel.squares ) {
+			var squares = flatten( Game.currentLevel.squares );
+
+			squares.forEach( function( elem ) { 
+				elem.DOMElement.off( '.placeShape' );
+			});
+		}
+	},
+
+	setActiveShape: function( shape ) {
+		if ( Game.activeShape ) {
+			Game.activeShape.changeState( 'unused' );
+		}
+
+		Game.activeShape = shape;
+	}
 };
 
 
@@ -70,12 +88,11 @@ function hoverFlip( shape ) {
 }
 
 
+
 function applyShape( shape, i, j ) {
 	var squares = flatten( Game.currentLevel.squares );
 
-	squares.forEach( function( elem ) { 
-		elem.DOMElement.off( '.placeShape' );
-	});
+	Game.stopHoverFlip();
 
 	flipShape( shape, i, j );
 
@@ -178,7 +195,6 @@ function Shape( valueMap ) {
 			switch ( self.state  ) {
 				case 'unused':
 					self.changeState( 'active' );
-					hoverFlip( self );
 					break;
 				case 'active':
 					self.changeState( 'unused' );
@@ -208,6 +224,7 @@ Shape.prototype.changeState = function( newState ) {
 		case 'unused':
 			this.state = 'unused';
 			this.DOMElement.attr( 'data-state', 'unused' );
+			Game.stopHoverFlip();
 			break;
 		case 'used':
 			this.state = 'used';
@@ -216,7 +233,8 @@ Shape.prototype.changeState = function( newState ) {
 		case 'active':
 			this.state = 'active';
 			this.DOMElement.attr( 'data-state', 'active' );
-			Game.activeShape = this;
+			Game.setActiveShape( this );
+			hoverFlip( this );
 			break;
 
 	}
@@ -251,6 +269,7 @@ var levelData = [
 	},
 
 	{
+		number: 1,
 		size: 5,
 
 		map: [
@@ -271,6 +290,31 @@ var levelData = [
 		]
 	},
 
+	{
+		number: 2,
+		size: 5,
+
+		map: [
+			[1, 1, 1, 1, 1],
+			[1, 1, 1, 1, 1],
+			[1, 1, 1, 1, 1],
+			[1, 1, 1, 1, 1],
+			[1, 1, 1, 1, 1]
+		],
+
+		squares: [],
+
+		shapes: [
+			new Shape( [ [1, 0, 0], [0, 1, 0], [0, 1, 1] ] ),
+			new Shape( [ [1, 0], [1, 1] ] ),
+			new Shape( [ [1, 0, 0], [0, 0, 1] ] ),
+			new Shape( [ [1, 1, 0], [0, 1, 1] ] ),
+			new Shape( [ [1, 1, 0], [0, 1, 0], [1, 1, 1] ] ),
+			new Shape( [ [0, 0, 0, 1], [1, 0, 0, 0] ] ),
+			new Shape( [ [1], [0], [1] ] ),
+			new Shape( [ [1], [1] ] )
+		]
+	 }
 ];
 
 // @koala-prepend "scripts/Game.js"

@@ -12,7 +12,6 @@ function Shape( valueMap ) {
 			switch ( self.state  ) {
 				case 'unused':
 					self.changeState( 'active' );
-					hoverFlip( self );
 					break;
 				case 'active':
 					self.changeState( 'unused' );
@@ -42,6 +41,7 @@ Shape.prototype.changeState = function( newState ) {
 		case 'unused':
 			this.state = 'unused';
 			this.DOMElement.attr( 'data-state', 'unused' );
+			Game.stopHoverFlip();
 			break;
 		case 'used':
 			this.state = 'used';
@@ -50,7 +50,8 @@ Shape.prototype.changeState = function( newState ) {
 		case 'active':
 			this.state = 'active';
 			this.DOMElement.attr( 'data-state', 'active' );
-			Game.activeShape = this;
+			Game.setActiveShape( this );
+			hoverFlip( this );
 			break;
 
 	}
