@@ -25,6 +25,11 @@ var Game = {
 		clearGameArea();
 		newLevel( levelData[ Game.currentLevel.number ] );
 	},
+
+	gameCompleted: function() {
+		//TODO: Replace dummy method
+		alert( "That's all, Folks!" );
+	},
 };
 
 
@@ -40,8 +45,14 @@ function newLevel( level ) {
 }
 
 function nextLevel() {
+	var nextLevelData = levelData[ Game.currentLevel.number + 1 ];
+
 	clearGameArea();
-	newLevel( levelData[ Game.currentLevel.number + 1 ] );
+	if ( nextLevelData == undefined ) {
+		Game.gameCompleted();
+	} else {
+		newLevel( nextLevelData );
+	}
 }
 
 function clearGameArea() {
@@ -155,7 +166,6 @@ function checkForLoss() {
 	Game.currentLevel.shapes.forEach( function( elem ) {
 		if ( elem.state != 'used' ) unusedCount++;
 	});
-	console.log( unusedCount );
 	return !(unusedCount > 0);
 }
 
