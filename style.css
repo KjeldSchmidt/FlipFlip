@@ -5,12 +5,8 @@ body {
   width: 100%;
   text-align: center; }
 
-#flipArea {
-  background: #eeb; }
-
 #playArea {
   line-height: 0px;
-  background: #eeb;
   display: inline-block; }
 
 .square {
@@ -43,6 +39,14 @@ body {
     background: #aaf; }
   .shape[data-state=used] .shapeDot.active {
     background: #aaa; }
+  .shape:hover .shapeDot.active:before {
+    box-shadow: #faa 0 0 10px 5px;
+    height: 100%;
+    width: 100%;
+    content: "";
+    position: relative;
+    z-index: -1;
+    display: block; }
   .shapeDot.inactive {
     background: transparent; }
 
