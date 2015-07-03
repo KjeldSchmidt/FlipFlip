@@ -14,7 +14,7 @@ var Game = {
 	},
 
 	setActiveShape: function( shape ) {
-		if ( Game.activeShape ) {
+		if ( Game.activeShape && ( Game.activeShape !== shape ) ) {
 			Game.activeShape.changeState( 'unused' );
 		}
 
